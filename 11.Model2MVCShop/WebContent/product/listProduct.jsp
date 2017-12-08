@@ -25,12 +25,36 @@ String searchKeyword = CommonUtil.null2str(searchVO.getSearchKeyword());
 	String menu = (String)request.getParameter("menu");
 %>
 --%>    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <title>상품 목록조회</title>
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<meta charset="EUC-KR">
+	
+	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<link href="/css/animate.min.css" rel="stylesheet">
+  	<link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+  	 
+  	<script src="/javascript/bootstrap-dropdownhover.min.js"></script>
+	
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	
+	<style>
+	  body {
+            padding-top : 50px;
+        }
+    </style>
+
 <script type="text/javascript">
 
 function fncGetList(currentPage) {
@@ -42,18 +66,18 @@ function fncGetList(currentPage) {
 
 $(function() {
 	 
-		 $( "td.ct_btn01:contains('검색')" ).on("click" , function() {
+	 	$( "button.btn.btn-default" ).on("click" , function() {
 			fncGetList(1);
-		 });
+		});
 		 
 		
-		 $( ".ct_list_pop td:nth-child(3)" ).on("click" , function() {
+		 $( "td:nth-child(2)" ).on("click" , function() {
 				if(${param.menu=='manage'}){
-					self.location = "/product/updateProduct?prodNo="+$($('input:hidden[name="prodNo"]')[$(".ct_list_pop td:nth-child(3)").index(this)]).val()+"&menu=${param.menu}";
+					self.location = "/product/updateProduct?prodNo="+$($('input:hidden[name="prodNo"]')[$("td:nth-child(2)").index(this)]).val()+"&menu=${param.menu}";
 				}
 				else if(${param.menu=='search'}){
-					if($($('input[name="proTranCode"]')[$(".ct_list_pop td:nth-child(3)").index(this)]).val()==''){
-						self.location = "/product/getProduct?prodNo="+$($('input:hidden[name="prodNo"]')[$(".ct_list_pop td:nth-child(3)").index(this)]).val()+"&menu=${param.menu}";
+					if($($('input[name="proTranCode"]')[$("td:nth-child(2)").index(this)]).val()==''){
+						self.location = "/product/getProduct?prodNo="+$($('input:hidden[name="prodNo"]')[$("td:nth-child(2)").index(this)]).val()+"&menu=${param.menu}";
 						}else {
 					}
 				}
@@ -61,21 +85,21 @@ $(function() {
 			});
 		 
 		$( "td.ct_condition:contains('배송하기')" ).on("click" , function() {
-			 self.location = "/purchase/updateTranCodeByProd?prodNo="+$($('input:hidden[name="prodNo"]')[$(".ct_list_pop td:nth-child(7)").index(this)]).val()+
-					 "&proTranCode="+$($('input:hidden[name="proTranCode"]')[$(".ct_list_pop td:nth-child(7)").index(this)]).val();
+			 self.location = "/purchase/updateTranCodeByProd?prodNo="+$($('input:hidden[name="prodNo"]')[$("td:nth-child(4)").index(this)]).val()+
+					 "&proTranCode="+$($('input:hidden[name="proTranCode"]')[$("td:nth-child(4)").index(this)]).val();
 		});
 		
 		$( "td.ct_condition:contains('배송완료확인')" ).on("click" , function() {
-			 self.location = "/purchase/updateTranCodeByProd?prodNo="+$($('input:hidden[name="prodNo"]')[$(".ct_list_pop td:nth-child(7)").index(this)]).val()+"&proTranCode="
-					 +$($('input:hidden[name="proTranCode"]')[$(".ct_list_pop td:nth-child(7)").index(this)]).val();
+			 self.location = "/purchase/updateTranCodeByProd?prodNo="+$($('input:hidden[name="prodNo"]')[$("td:nth-child(4)").index(this)]).val()+"&proTranCode="
+					 +$($('input:hidden[name="proTranCode"]')[$("td:nth-child(4)").index(this)]).val();
 			 
 		});
 		
 		
-		$( ".ct_list_pop td:nth-child(1)" ).on("click" , function() {
+		$( "td:nth-child(1)" ).on("click" , function() {
 		 if(${param.menu=='search'}){
 						
-					var prodNo = $($('input:hidden[name="prodNo"]')[$(".ct_list_pop td:nth-child(1)").index(this)]).val();
+					var prodNo = $($('input:hidden[name="prodNo"]')[$("td:nth-child(1)").index(this)]).val();
 					$.ajax( 
 							{
 								url : "/product/json/getProduct/"+prodNo ,
@@ -106,7 +130,6 @@ $(function() {
 		 		}
 		 	});
 		
-		 $(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
 		
 			/*$( "td.ct_pre" ).hover(
 				  function() {
@@ -123,9 +146,9 @@ $(function() {
 			});  */
 			
 			
-		 $( ".ct_list_pop td:nth-child(9)" ).hover(function() { 
-			var prodNo = $($('input:hidden[name="prodNo"]')[$(".ct_list_pop td:nth-child(9)").index(this)]).val();
-			var fileName = $($('input:hidden[name="fileName"]')[$(".ct_list_pop td:nth-child(9)").index(this)]).val();
+		 $( "td:nth-child(5)" ).hover(function() { 
+			var prodNo = $($('input:hidden[name="prodNo"]')[$("td:nth-child(5)").index(this)]).val();
+			var fileName = $($('input:hidden[name="fileName"]')[$("td:nth-child(5)").index(this)]).val();
 				  $.ajax( 
 						{
 							url : "/product/json/getProduct/"+prodNo ,
@@ -138,13 +161,18 @@ $(function() {
 							success : function(JSONData , status) {
 								var displayValue = "<img class=hover src=/images/uploadFiles/"+JSONData.fileName+"/>";
 							
-								//$(".hover").remove();
-								$("."+prodNo+"").append($("."+prodNo+"").html(displayValue));
+								if(fileName!=null){
+									$("."+prodNo+"").append("<p id='append'>"+displayValue+"</p>");
+								}else{
+									$("."+prodNo+"").append("<p id='append'>이미지 없음</p>");
+								}
 							}
 					});
 	
 		}, function() {
 			$(".hover").remove();
+			$("#append").remove();
+			
 		  }
 		 );	
 			
@@ -156,70 +184,54 @@ $(function() {
 				
 });
 	 
-</script>
-</head>
+		</script>
+	</head>
 
-<body bgcolor="#ffffff" text="#000000">
+<body>
 
-<div style="width:98%; margin-left:10px;">
-
+	<jsp:include page="/layout/toolbar.jsp" />
 <!-- <form name="detailForm" action="/product/listProduct?menu=${param.menu}&searchOption=${search.searchOption}" method="post" > -->
-<form name="detailForm">
-
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
-	<tr>
-		<td width="15" height="37">
-			<img src="/images/ct_ttl_img01.gif" width="15" height="37"/>
-		</td>
-		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
-			<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				<tr>
-				
+<div class="container">
+	
+	<div class="page-header text-info">	
 			<%--	<% 
 				System.out.println("list의 menu : "+menu);
 				if(menu.equals("manage")) {%>
 					<td width="93%" class="ct_ttl01">
-					
 							상품 관리
-					
 					</td>
 					<%} else{ %>
 						<td width="93%" class="ct_ttl01">
-					
 							상품 목록조회
-					
 					</td>
 					<%} %>--%> 
+			<c:if test = "${param.menu=='manage'}">
+				<h3>상품 관리</h3>
+			</c:if>
+			<c:if test = "${param.menu=='search'}">
+				<h3>상품 목록조회</h3>
+			</c:if>
 					
-					<c:if test = "${param.menu=='manage'}">
-					<td width="93%" class="ct_ttl01">
-					
-							상품 관리
-					
-					</td>
-					</c:if>
-					<c:if test = "${param.menu=='search'}">
-					<td width="93%" class="ct_ttl01">
-					
-							상품 목록조회
-					
-					</td>
-					</c:if>
-					
-				</tr>
-			</table>
-		</td>
-		<td width="12" height="37">
-			<img src="/images/ct_ttl_img03.gif" width="12" height="37"/>
-		</td>
-	</tr>
-</table>
+	</div>
 
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr>
-	<td align="right">
-			<select name="searchCondition" id="searchCondition" class="ct_input_g" style="width:80px">
+ <div class="row">
+ 
+ 	<div class="col-md-6 text-left">
+		  <p class="text-primary">
+		    		전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
+		  </p>
+	</div>
+	
+	<div class="col-md-6 text-right">
+			    <form class="form-inline" name="detailForm">
+ 
+	<div class="form-group">
+		<select class="form-control" name="searchCondition" id="searchCondition">
+			<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>전체</option>
+			<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
+			<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
+		</select>
+	</div>
 		<%-- <%
 		if(searchVO.getSearchCondition() != null) {
 		%>
@@ -247,15 +259,12 @@ $(function() {
 			<%
 				}
 			%>--%>
-			
-			<option value="0"  ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>전체</option>
-			<option value="1"  ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
-			<option value="2"  ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
-			
-			</select>
-			<input type="text" name="searchKeyword" id="searchkeyword" value="${ (!empty search.searchKeyword) ? search.searchKeyword : "" }" class="ct_input_g" style="width:200px; height:19px" />
-		</td>
-		
+	<div class="form-group">
+		<label class="sr-only" for="searchKeyword">검색어</label>
+		 <input type="text" class="form-control" id="searchKeyword" name="searchKeyword"  placeholder="검색어"
+				value="${! empty search.searchKeyword ? search.searchKeyword : '' }"  >
+	</div>
+	
 	<%--	<%
 		}else{
 		%>
@@ -272,53 +281,34 @@ $(function() {
 		}
 		%>--%>
 			
-		<td align="right" width="70">
-			<table border="0" cellspacing="0" cellpadding="0">
-				<tr>
-					<td width="17" height="23">
-						<img src="/images/ct_btnbg01.gif" width="17" height="23">
-					</td>
-					<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top:3px;">
-						<!--  <a href="javascript:fncGetList('1');">검색</a> -->
-						검색
-					</td>
-					<td width="14" height="23">
-						<img src="/images/ct_btnbg03.gif" width="14" height="23">
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-</table>
-
-
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr class="ct_price">
-		<td colspan="3" >
-		전체 ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage}  페이지 		
-		</td>
-		<td colspan="8" align="right" >
-
-		<!--  <input type="hidden" name="searchOption" id="searchOption" >-->
+		<button type="button" class="btn btn-default">검색</button>
+	<p>	
+	<div class="form-group">
 		<a href="/product/listProduct?menu=${param.menu}&searchOption=0&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}">높은 가격순▲ </a>
 		<a href="/product/listProduct?menu=${param.menu}&searchOption=1&searchCondition=${search.searchCondition}&searchKeyword=${search.searchKeyword}">낮은 가격순▼ </a>
-		</td>
-	</tr>
-	<tr>
-		<td class="ct_list_b" width="100">No(미리보기)</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">상품명</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b" width="150">가격</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">현재상태</td>
-		<td class="ct_line02"></td>
-		<td class="ct_list_b">빠른보기</td>		
-	</tr>
-	<tr>
-		<td colspan="11" bgcolor="808285" height="1"></td>
-	</tr>
+	</div>
+	</p>
+	 	<input type="hidden" id="currentPage" name="currentPage" value=""/>
+				  
+		</form>
 	
+	</div>
+
+</div>
+
+
+
+<table class="table table-hover table-striped" >
+      
+        <thead>
+	<tr>
+	 		<th align="center">No</th>
+            <th align="left" >상품명</th>
+            <th align="left">가격</th>
+            <th align="left">현재상태</th>
+            <th align="left">빠른보기</th>
+	</tr>
+	</thead>
 <%--	<%
 	for(int i=0; i<list.size(); i++) {
 		Product vo = (Product)list.get(i);
@@ -343,17 +333,16 @@ $(function() {
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
 	</tr>	
 	<% } %>		--%>
-	
+<tbody>	
 <c:set var="i" value="0" />
 	<c:forEach var="product" items="${list}">	
 		<c:set var="i" value="${ i+1 }" />
-		<tr class="ct_list_pop">
+		<tr>
 			<td align="center">
 			<input type="hidden" name="prodNo" value="${product.prodNo}">
 			<input type="hidden" name="proTranCode" value="${product.proTranCode}">
 			<input type="hidden" name="fileName" value="${product.fileName}">
-			<ins>${ i }</ins></td>
-			<td></td>
+			${ i }</td>
 				<c:if test = "${param.menu=='manage'}">					
 					<td align="left">
 					<!--<a href="/product/updateProduct?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a>-->
@@ -377,9 +366,7 @@ $(function() {
 				</td>
 				</c:if>
 				</c:if>
-			<td></td>
 			<td align="left">${product.price}</td>
-			<td></td>
 			<td align="left" class="ct_condition">
 			<!-- <input type="hidden" name="prodNo" value="${product.prodNo}">
 			<input type="hidden" name="proTranCode" value="${product.proTranCode}"> -->
@@ -407,48 +394,22 @@ $(function() {
 				배송완료
 			</c:if>
 			</td>
-			<td></td>
 			<td align="left" class="${product.prodNo}">${product.fileName}</td>		
 		</tr>
-		<tr>
 		<!--<td colspan="11" bgcolor="D6D7D6" height="1"></td>-->
-		
-		<td id="${product.prodNo}" colspan="11" bgcolor="D6D7D6" height="1"></td>
-		</tr>
-		</input>
-		</input>
-	</c:forEach>
-</table>
+		<input type="hidden" value="${product.prodNo}" id="${product.prodNo}">
+				</input>
+				</input>
+			</c:forEach>
+		</tbody>
 
-<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
-	<tr>
-		<td align="center">
-	 <input type="hidden" id="currentPage" name="currentPage" value=""/>
-		<%--	<% if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ %>
-					◀ 이전
-			<% }else{ %>
-					<a href="javascript:fncGetProductList('<%=resultPage.getCurrentPage()-1%>')">◀ 이전</a>
-			<% } %>
+	</table>
+</div>
 
-			<%	for(int i=resultPage.getBeginUnitPage();i<= resultPage.getEndUnitPage() ;i++){	%>
-					<a href="javascript:fncGetProductList('<%=i %>');"><%=i %></a>
-			<% 	}  %>
-	
-			<% if( resultPage.getEndUnitPage() >= resultPage.getMaxPage() ){ %>
-					이후 ▶
-			<% }else{ %>
-					<a href="javascript:fncGetProductList('<%=resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
-			<% } %>--%>
-			
-			<jsp:include page="../common/pageNavigator.jsp"/>	
-    	</td>
-	</tr>
-</table>
+<jsp:include page="../common/pageNavigator_new.jsp"/>
 
 <!--  페이지 Navigator 끝 -->
 
-</form>
 
-</div>
 </body>
 </html>

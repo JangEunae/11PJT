@@ -34,11 +34,11 @@
 	<script type="text/javascript">
 	
 	$(function() {
-		 $( "td.ct_btn00:contains('확인')" ).on("click" , function() {
+		 $( "button:contains('확인')" ).on("click" , function() {
 			 self.location = "/product/listProduct?menu=manage";
 		});
 		
-		 $( "td.ct_btn01:contains('추가등록')" ).on("click" , function() {
+		 $( "button:contains('추가등록')" ).on("click" , function() {
 				self.location = "/product/addProductView.jsp;"
 			});
 	});
@@ -50,7 +50,7 @@
 <!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+        	<jsp:include page="/layout/toolbar.jsp" />
    		</div>
    	</div>
    	<!-- ToolBar End /////////////////////////////////////-->
@@ -68,55 +68,34 @@
 	
 	<div class="form-group">
 		 <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
-		   <div class="col-sm-4">
-		    <input type="text" class="form-control" id="prodName" name="prodName" value="${productVO.prodName}"  placeholder="상품명"  >
-			 <span id="helpBlock" class="help-block">
-			</span>
-		   </div>
+		   <div class="col-sm-4">${productVO.prodName}"</div>
 	</div> 
 	
 	<div class="form-group">
 		 <label for="prodDetail" class="col-sm-offset-1 col-sm-3 control-label">상품상세정보</label>
-		   <div class="col-sm-4">
-		    <input type="text" class="form-control" id="prodDetail" name="prodDetail" value="${productVO.prodDetail}" placeholder="상품상세정보"  >
-			 <span id="helpBlock" class="help-block">
-			</span>
-		   </div>
+		   <div class="col-sm-4">${productVO.prodDetail}</div>
 	</div> 
 			
 	<div class="form-group">
 		 <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">제조일자</label>
-		   <div class="col-sm-4">
-		    <input type="text" class="form-control" id="manuDate" name="manuDate" value="${productVO.manuDate}" placeholder="제조일자"  >
-			 <span id="helpBlock" class="help-block">
-			</span>
-		   </div>
+		   <div class="col-sm-4">${productVO.manuDate}</div>
 	</div>	
 			
 	<div class="form-group">
 		 <label for="price" class="col-sm-offset-1 col-sm-3 control-label">가격</label>
-		   <div class="col-sm-4">
-		    <input type="text" class="form-control" id="price" name="price" value="${productVO.price}" placeholder="가격"  >
-			 <span id="helpBlock" class="help-block">
-			</span>
-		   </div>
+		   <div class="col-sm-4">${productVO.price}</div>
 	</div>	
 	
 	<div class="form-group">
 		 <label for="fileName" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
-		   <div class="col-sm-4">
-		    <!-- <input type="text" class="form-control" id="fileName" name="fileName"  placeholder="상품이미지"  >-->
-			 <img src="/images/uploadFiles/${productVO.fileName.trim()}"/>
-			 <span id="helpBlock" class="help-block">
-			</span>
-		   </div>
+		  <div><img src="/images/uploadFiles/${productVO.fileName.trim()}"/></div>
 	</div>
 			
 			
 
 	<div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary"  >확 &nbsp;인</button>
+		      <button type="button" class="btn btn-primary"  >확인</button>
 			  <button type="button" class="btn btn-primary"  >추가등록</button>
 		    </div>
 	</div>

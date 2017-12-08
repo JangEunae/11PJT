@@ -122,7 +122,7 @@ public class ProductController {
 			}*/
 		
 		
-		File f = new File("C:\\Users\\bitcamp\\git\\10PJT\\10.Model2MVCShop(Ajax)\\WebContent\\images\\uploadFiles\\"+multi.getOriginalFilename());
+		File f = new File("C:\\Users\\bitcamp\\git\\11PJT\\11.Model2MVCShop\\WebContent\\images\\uploadFiles\\"+multi.getOriginalFilename());
 		multi.transferTo(f);
 
 		product.setFileName(multi.getOriginalFilename());
@@ -185,7 +185,7 @@ public class ProductController {
 
 		System.out.println("/product/updateProduct : POST");
 		
-		File f = new File("C:\\Users\\bitcamp\\git\\10PJT\\10.Model2MVCShop(Ajax)\\WebContent\\images\\uploadFiles\\"+multi.getOriginalFilename());
+		File f = new File("C:\\Users\\bitcamp\\git\\11PJT\\11.Model2MVCShop\\WebContent\\images\\uploadFiles\\"+multi.getOriginalFilename());
 		multi.transferTo(f);
 
 		product.setFileName(multi.getOriginalFilename());

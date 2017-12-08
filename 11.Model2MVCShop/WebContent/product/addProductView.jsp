@@ -3,7 +3,7 @@
 
 
 <!DOCTYPE html>
-<html>
+<html  lang="ko">
 <head>
 <title>상품등록</title>
 
@@ -11,9 +11,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
-<link rel="stylesheet" href="/css/admin.css" type="text/css">
-
-	<script type="text/javascript" src="../javascript/calendar.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -25,8 +22,25 @@
             margin-top: 10px;
         }
     </style>
+    
+    <script type="text/javascript" src="../javascript/calendar.js"></script>
 	<script type="text/javascript">
 
+	$(function() {
+		 $("button.btn.btn-primary:contains('등록')" ).on("click" , function() {
+			fncAddProduct();
+		});
+	});	
+
+	$(function() {
+		 $( "#remove" ).on("click" , function() {
+				$("form")[0].reset();
+		});
+	});
+	
+	
+	
+	
 function fncAddProduct(){
 	//Form 유효성 검증
  	//var name = document.detailForm.prodName.value;
@@ -58,24 +72,13 @@ function fncAddProduct(){
 
 	//document.detailForm.action='/product/addProduct';
 	//document.detailForm.submit();
-	
-	$("form").attr("method" , "POST").attr("action" , "/product/addProduct").submit();
+	console.log("???");
+	$("form").attr("method" , "POST").attr("enctype" , "multipart/form-data").attr("action" , "/product/addProduct").submit();
+	//self.location = "/product/addProduct";
 }
 
-//function resetData(){
-//	document.detailForm.reset();
-//}
-	$(function() {
-			 $( "#submit" ).on("click" , function() {
-				fncAddProduct();
-			});
-		});	
 
-	$(function() {
-			 $( "#remove" ).on("click" , function() {
-					$("form")[0].reset();
-			});
-		});
+
 </script>
 
 </head>
@@ -83,7 +86,7 @@ function fncAddProduct(){
 		
 	<div class="navbar  navbar-default">
         <div class="container">
-        	<a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>
+        	<jsp:include page="/layout/toolbar.jsp" />
    		</div>
    	</div>
 
@@ -117,7 +120,9 @@ function fncAddProduct(){
 	<div class="form-group">
 		 <label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">제조일자</label>
 		   <div class="col-sm-4">
-		    <input type="text" class="form-control" id="manuDate" name="manuDate"  placeholder="제조일자"  >
+		    <input type="text" class="form-control" id="manuDate" name="manuDate"  placeholder="제조일자" readonly="readonly" >
+			 <img src="../images/ct_icon_date.gif" width="15" height="15" 
+										onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)"/>
 			 <span id="helpBlock" class="help-block">
 			</span>
 		   </div>
@@ -133,9 +138,9 @@ function fncAddProduct(){
 	</div>	
 	
 	<div class="form-group">
-		 <label for="fileName" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
+		 <label for="multi" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 		   <div class="col-sm-4">
-		    <input type="file" class="form-control" id="fileName" name="fileName"  placeholder="상품이미지"  >
+		    <input type="file" class="form-control" id="multi" name="multi"  placeholder="상품이미지"  >
 			 <span id="helpBlock" class="help-block">
 			</span>
 		   </div>
@@ -143,8 +148,8 @@ function fncAddProduct(){
 
 	<div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
-		      <button type="button" class="btn btn-primary" id="submit" >등록</button>
-			  <button type="button" class="btn btn-primary" id="remove" >취소</button>
+		      <button type="button" class="btn btn-primary"  >등록</button>
+			  <!--  ㅌ<button type="button" class="btn btn-primary" id="remove" >취소</button> -->
 		    </div>
 	</div>
 
