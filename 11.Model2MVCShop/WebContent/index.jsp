@@ -25,11 +25,38 @@
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
+	<link href="cover.css" rel="stylesheet">
+	<link href="jumbotron-narrow.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
-	<style></style>
+	<style>
+		 body {
+            color: #1a1a1a;
+  			text-align: center;
+  			text-shadow: 0 1px 3px rgba(0,0,0,.5);
+       		 }
+   	
+   		html, body {
+   			height: 100%;
+    		background-image: url("/images/shutterstock_726719677.jpg");
+    		background-size: cover;
+    		}
+    		
+		  	
+		.jumbotron {
+		    text-align: center;
+		    border-bottom: 1px solid #e5e5e5;
+		    padding-top: 30px;
+		    padding-bottom: 30px;
+		    margin-bottom: 30px;
+		    background-color: #f2f2f2;
+		    opacity: 0.8;
+		}
+		
+	
+	</style>
    	
    	<!--  ///////////////////////// JavaScript ////////////////////////// -->
 	<script type="text/javascript">
@@ -92,14 +119,12 @@
 		<div class="row">
 	
 			<!--  Menu 구성 Start /////////////////////////////////////-->     	
-			<div class="col-md-3">
+			<!--<div class="col-md-3">
 		        
-		       	<!--  회원관리 목록에 제목 -->
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<i class="glyphicon glyphicon-heart"></i> 회원관리
          			</div>
-         			<!--  회원관리 아이템 -->
 					<ul class="list-group">
 						 <li class="list-group-item">
 						 	<a href="#">개인정보조회</a> <i class="glyphicon glyphicon-ban-circle"></i>
@@ -141,11 +166,11 @@
 					</ul>
 				</div>
 				
-			</div>
+			</div>--> 
 			<!--  Menu 구성 end /////////////////////////////////////-->   
 
 	 	 	<!--  Main start /////////////////////////////////////-->   		
-	 	 	<div class="col-md-9">
+	 	 	<div class="col-md-12">
 				<div class="jumbotron">
 			  		<h1>Model2 MVC Shop</h1>
 			  		<p>로그인 후 사용가능...</p>

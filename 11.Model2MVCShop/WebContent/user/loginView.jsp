@@ -17,13 +17,26 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
-    	 body >  div.container{ 
-        	border: 3px solid #D6CDB7;
-            margin-top: 10px;
-        }
+   		html, body {
+   			height: 100%;
+    		background-image: url("/images/shutterstock_726719677.jpg");
+    		background-size: cover;
+    		}
+    	.jumbotron {
+    		text-align: center;
+    	}	
+    	
+    	@media screen and (min-width: 768px)
+			bootstrap.css:4988
+			.jumbotron {
+			    padding-top: 48px;
+			    padding-bottom: 48px;
+		}
+    		
     </style>
     
     <!--  ///////////////////////// JavaScript ////////////////////////// -->
@@ -64,6 +77,72 @@
 			});
 		});
 		
+		
+		
+		//////////////////////////////////////페이스북 로그인 /////////////////////////////////////
+		
+		function statusChangeCallback(response) {
+		    console.log('statusChangeCallback');
+		    console.log(response);
+		    
+		    if (response.status === 'connected') {
+		    	console.log('로그인 연결');
+		    	console.log(response.authResponse.accessToken);
+		    	testAPI();
+		      
+		    } else {
+		     // document.getElementById('status').innerHTML = 'Please log ' +
+		        //'into this app.';
+		    	console.log('로그인 하세요');
+		    }
+		  }
+
+		  function checkLoginState() {
+		    FB.getLoginStatus(function(response) {
+		      statusChangeCallback(response);
+		    });
+		  }
+
+		  window.fbAsyncInit = function() {
+		  FB.init({
+		    appId      : '157517288201485',
+		    cookie     : true,  // enable cookies to allow the server to access 
+		    xfbml      : true,  // parse social plugins on this page
+		    version    : 'v2.11' // use graph api version 2.8
+		  });
+
+
+		  FB.getLoginStatus(function(response) {
+		    statusChangeCallback(response);
+		  });
+
+		  };
+			
+		  (function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.11&appId=157517288201485';
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+		  function testAPI() {
+		    console.log('Welcome!  Fetching your information.... ');
+		    FB.api('/me', function(response) {
+		      console.log('Successful login for: ' + response.name);
+		      console.log('Successful login for: ' + response.email);
+		      console.log('Successful login for: ' + response.birthday);
+		      console.log('Successful login for: ' + response);
+		     
+		      FB.api('/me/picture?type=large',function(data){
+				  var myImg = data.data.url;
+				  console.log('이미지 ' + myImg);
+				  });
+		      //document.getElementById('status').innerHTML =
+		        //'Thanks for logging in, ' + response.name + '!';
+		    });
+		  }
+		
 	</script>		
 	
 </head>
@@ -83,11 +162,7 @@
 		<!--  row Start /////////////////////////////////////-->
 		<div class="row">
 		
-			<div class="col-md-6">
-					<img src="/images/logo-spring.png" class="img-rounded" width="100%" />
-			</div>
-	   	 	
-	 	 	<div class="col-md-6">
+	 	 	<div class="col-md-12">
 	 	 	
 		 	 	<br/><br/>
 				
@@ -98,25 +173,28 @@
 		  
 					  <div class="form-group">
 					    <label for="userId" class="col-sm-4 control-label">아 이 디</label>
-					    <div class="col-sm-6">
+					    <div class="col-sm-4">
 					      <input type="text" class="form-control" name="userId" id="userId"  placeholder="아이디" >
 					    </div>
 					  </div>
 					  
 					  <div class="form-group">
 					    <label for="password" class="col-sm-4 control-label">패 스 워 드</label>
-					    <div class="col-sm-6">
+					    <div class="col-sm-4">
 					      <input type="password" class="form-control" name="password" id="password" placeholder="패스워드" >
 					    </div>
 					  </div>
 					  
 					  <div class="form-group">
-					    <div class="col-sm-offset-4 col-sm-6 text-center">
+					    <div class="col-sm-offset-4 col-sm-4 text-center">
 					      <button type="button" class="btn btn-primary"  >로 &nbsp;그 &nbsp;인</button>
 					      <a class="btn btn-primary btn" href="#" role="button">회 &nbsp;원 &nbsp;가 &nbsp;입</a>
 					    </div>
 					  </div>
-			
+					  
+					  <div id="fb-root"></div>
+						<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" 
+							data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
 					</form>
 			   	 </div>
 			

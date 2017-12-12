@@ -118,7 +118,7 @@
 		 <div class="form-group">
 		 <label for="divyDate" class="col-sm-offset-1 col-sm-3 control-label">硅价锐噶老磊</label>
 		   <div class="col-sm-4">
-		    <input type="text" class="form-control" id="divyDate" name="divyDate"  placeholder="力炼老磊" readonly="readonly" >
+		    <input type="text" class="form-control" id="divyDate" name="divyDate"  placeholder="硅价锐噶老磊" readonly="readonly" >
 			 <img src="../images/ct_icon_date.gif" width="15" height="15" 
 										onclick="show_calendar('document.updatePurchase.divyDate', document.updatePurchase.divyDate.value)"/>
 			 <span id="helpBlock" class="help-block">

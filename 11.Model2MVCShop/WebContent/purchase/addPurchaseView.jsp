@@ -113,7 +113,7 @@ $(function() {
 	</div>
 	
 	<div class="form-group">
-		 <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">备概规过</label>
+		 <label for="paymentOption" class="col-sm-offset-1 col-sm-3 control-label">备概规过</label>
 		   <div class="col-sm-4">
 		    <select name="paymentOption" class="ct_input_g" style="width: 100px; height: 19px" maxLength="20">
 		    	<option value="1" selected="selected">泅陛备概</option>

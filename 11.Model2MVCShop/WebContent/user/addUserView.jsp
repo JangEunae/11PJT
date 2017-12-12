@@ -87,7 +87,7 @@
 
 			$("input:hidden[name='phone']").val( value );
 			
-			$("form").attr("method" , "POST").attr("action" , "/user/addUser").submit();
+			$("form").attr("method" , "POST").attr("enctype" , "multipart/form-data").attr("action" , "/user/addUser").submit();
 		}
 		
 
@@ -251,6 +251,15 @@
 		      <input type="text" class="form-control" id="email" name="email" placeholder="이메일">
 		    </div>
 		  </div>
+		  
+		<div class="form-group">
+		 <label for="multi" class="col-sm-offset-1 col-sm-3 control-label">프로필사진</label>
+		   <div class="col-sm-4">
+		    <input type="file" class="form-control" id="multi" name="multi"  placeholder="프로필사진"  >
+			 <span id="helpBlock" class="help-block">
+			</span>
+		   </div>
+		</div>
 		  
 		  <div class="form-group">
 		    <div class="col-sm-offset-4  col-sm-4 text-center">
