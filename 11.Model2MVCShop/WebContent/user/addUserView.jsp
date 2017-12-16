@@ -151,6 +151,108 @@
 											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
 			});
 		});	
+		
+		
+//////////////////////////////////////페이스북 로그인 /////////////////////////////////////
+			
+			function checkLoginState() {
+			    FB.getLoginStatus(function(response) {
+			      statusChangeCallback(response);
+			      console.log("토큰"+response.authResponse.accessToken);
+			    }
+				);
+			  }
+
+			  window.fbAsyncInit = function() {
+			  FB.init({
+			    appId      : '157517288201485',
+			    cookie     : true,  // enable cookies to allow the server to access 
+			    xfbml      : true,  // parse social plugins on this page
+			    version    : 'v2.11', // use graph api version 2.8
+			  });
+
+
+			  FB.getLoginStatus(function(response) {
+			    statusChangeCallback(response);
+			  });
+
+			  };
+			
+			
+			function statusChangeCallback(response) {
+			    console.log('statusChangeCallback');
+			    console.log(response);
+			    
+			    if (response.status === 'connected') {
+			    	console.log('로그인 연결');
+			    	console.log(response.authResponse.accessToken);
+			    	testAPI();
+			    	handleFacebookRegist(response);
+			      
+			    } else {
+			     // document.getElementById('status').innerHTML = 'Please log ' +
+			        //'into this app.';
+			    	console.log('로그인 하세요');
+			    }
+			  }
+
+				
+			  (function(d, s, id) {
+				  var js, fjs = d.getElementsByTagName(s)[0];
+				  if (d.getElementById(id)) return;
+				  js = d.createElement(s); js.id = id;
+				  js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.11&appId=157517288201485';
+				  fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));
+
+			  function testAPI() {
+			    console.log('Welcome!  Fetching your information.... ');
+			   /*  FB.api('/me',function(response) {
+			      console.log('Successful login for: ' + response.name);
+			      console.log('Successful login for: ' + response.email);
+			      console.log('Successful login for: ' + response.birthday);
+			      console.log('Successful login for: ' + response.id);
+			      
+			      //document.getElementById('status').innerHTML =
+			        //'Thanks for logging in, ' + response.name + '!';
+			    }); */
+			    console.log('이동....');
+			   //$("form").attr("method","POST").attr("action","/connect/facebook").submit();
+			  }
+			  
+			  function handleFacebookRegist(response) {
+				  console.log(response.authResponse.accessToken);
+				  var accessToken = response.authResponse.accessToken;
+				  var userId, userName, image;
+				  
+				  FB.api('/me/picture?type=large',function(data){
+					  image = data.data.url;
+					  console.log('이미지 ' + image);
+					  });
+				  
+				  FB.api('/me?fields=name,email', function (user) {
+					
+					userId = user.id;
+					userName = user.name;
+					image = image;
+					alert(userId);
+					alert(userName);
+					alert('이미지 ' + image);
+					
+				$.ajax({
+					type: "post",
+					url: "/user/facebooklogin",
+					dataType: "jason",
+					data:{
+		                  userId : userId,
+		                  userName : userName,
+		                  image : image
+		               } 
+				})
+					
+				})
+				
+			}
 
 	</script>		
     
@@ -204,7 +306,7 @@
 		  <div class="form-group">
 		    <label for="userName" class="col-sm-offset-1 col-sm-3 control-label">이름</label>
 		    <div class="col-sm-4">
-		      <input type="password" class="form-control" id="userName" name="userName" placeholder="회원이름">
+		      <input type="text" class="form-control" id="userName" name="userName" placeholder="회원이름">
 		    </div>
 		  </div>
 		  
@@ -269,10 +371,12 @@
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
-		
- 	</div>
+		<div class="col-sm-offset-4  col-sm-4 text-center">
+		<fb:login-button scope="public_profile,email" class="fb-login-button"  data-size="large" data-button-type="continue_with"  onlogin="checkLoginState();">
+		</fb:login-button>
+ 		</div>
 	<!--  화면구성 div end /////////////////////////////////////-->
-	
+	</div>
 </body>
 
 </html>

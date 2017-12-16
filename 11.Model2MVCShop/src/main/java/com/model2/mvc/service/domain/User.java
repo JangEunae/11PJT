@@ -16,6 +16,7 @@ public class User {
 	private String addr;
 	private String email;
 	private Date regDate;
+	private String image;
 	/////////////// EL 적용 위해 추가된 Field ///////////
 	private String phone1;
 	private String phone2;
@@ -88,6 +89,14 @@ public class User {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	/////////////// EL 적용 위해 추가된 getter Method ///////////
 	public String getPhone1() {
 		return phone1;
@@ -98,11 +107,12 @@ public class User {
 	public String getPhone3() {
 		return phone3;
 	}
+	
 
 	@Override
 	public String toString() {
 		return "UserVO : [userId] "+userId+" [userName] "+userName+" [password] "+password+" [role] "+ role
-			+" [ssn] "+ssn+" [phone] "+phone+" [email] "+email+" [regDate] "+regDate;
+			+" [ssn] "+ssn+" [phone] "+phone+" [email] "+email+" [regDate] "+regDate+" [image] "+image;
 	}
 	
 	////////////////////////////////////////////////////////////////////////////////////////

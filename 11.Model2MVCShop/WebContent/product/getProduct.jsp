@@ -17,6 +17,11 @@
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:url"           content="/product/getProduct?prodNo=${productVO.prodNo}&menu=search" />
+ 	<meta property="og:type"          content="article" />
+  	<meta property="og:title"         content="Model2 MVC Shop" />
+  	<meta property="og:description"   content="모듈화된 프리미엄 최고급 온라인 샵, 차별화된 서비스를 만나세요." />
+  	<meta property="og:image"         content="/images/uploadFiles/${productVO.fileName.trim()}" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -55,6 +60,14 @@
 			});
 		});
 		
+		(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = 'https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.11&appId=157517288201485';
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		
 	</script>
 <title>상품 상세 정보</title>
 </head>
@@ -80,6 +93,13 @@
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>상품명</strong></div>
 			<div class="col-xs-8 col-md-4">${productVO.prodName}</div>
+		</div>
+		
+		<hr/>
+		
+		<div class="row">
+	  		<div class="col-xs-4 col-md-2"><strong>사진</strong></div>
+			<div class="col-xs-8 col-md-4"><img src="/images/uploadFiles/${productVO.fileName.trim()}"/></div>
 		</div>
 		
 		<hr/>
@@ -112,6 +132,12 @@
 		</div>
 		
 		<hr/>
+		
+		<div id="fb-root"></div>
+		
+		<div class="fb-share-button" data-href="/product/getProduct?prodNo=${productVO.prodNo}&menu=search" data-layout="button" data-size="large" data-mobile-iframe="true">
+			공유하기
+		</div>
 
 	<div class="row">
 	  		<div class="col-md-12 text-center ">

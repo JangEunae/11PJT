@@ -43,7 +43,7 @@
    	
    		html, body {
    			height: 100%;
-    		background-image: url("/images/shutter.jpg");
+    		background-image: url("/images/Honeycam3.gif");
     		background-size: cover;
     		}
     			

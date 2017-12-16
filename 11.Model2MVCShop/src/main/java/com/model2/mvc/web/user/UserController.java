@@ -1,5 +1,6 @@
 package com.model2.mvc.web.user;
 
+import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -30,6 +33,9 @@ public class UserController {
 	@Autowired
 	@Qualifier("userServiceImpl")
 	private UserService userService;
+	
+	private MultipartFile multi;
+	
 	//setter Method 구현 않음
 		
 	public UserController(){
@@ -51,10 +57,15 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="addUser", method=RequestMethod.POST )
-	public String addUser( @ModelAttribute("user") User user ) throws Exception {
+	public String addUser( @ModelAttribute("user") User user, @RequestParam("multi") MultipartFile multi ) throws Exception {
 
 		System.out.println("/user/addUser : POST");
 		//Business Logic
+		
+		File f = new File("C:\\Users\\bitcamp\\git\\11PJT\\11.Model2MVCShop\\WebContent\\images\\profile\\"
+		+multi.getOriginalFilename());
+		multi.transferTo(f);
+		user.setImage(multi.getOriginalFilename());
 		userService.addUser(user);
 		
 		return "redirect:/user/loginView.jsp";
@@ -87,10 +98,15 @@ public class UserController {
 	}
 
 	@RequestMapping( value="updateUser", method=RequestMethod.POST )
-	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session) throws Exception{
+	public String updateUser( @ModelAttribute("user") User user , Model model , HttpSession session, @RequestParam("multi") MultipartFile multi) throws Exception{
 
 		System.out.println("/user/updateUser : POST");
-		//Business Logic
+		
+		File f = new File("C:\\Users\\bitcamp\\git\\11PJT\\11.Model2MVCShop\\WebContent\\images\\profile\\"
+		+multi.getOriginalFilename());
+		multi.transferTo(f);
+		
+		user.setImage(multi.getOriginalFilename());
 		userService.updateUser(user);
 		
 		String sessionId=((User)session.getAttribute("user")).getUserId();
@@ -161,7 +177,7 @@ public class UserController {
 		search.setPageSize(pageSize);
 		
 		// Business logic 수행
-		Map<String , Object> map=userService.getUserList(search);
+		Map<String , Object> map = userService.getUserList(search);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
@@ -173,4 +189,20 @@ public class UserController {
 		
 		return "forward:/user/listUser.jsp";
 	}
+	
+	@RequestMapping( value="facebooklogin" )
+	public String facebooklogin(@ModelAttribute("data") User user, HttpSession session) throws Exception{
+		
+		System.out.println("/user/facebooklogin");
+		System.out.println(user);
+		
+		if(userService.getUser(user.getUserId())==null){
+			userService.addUser(user);
+			session.setAttribute("user", user);
+		}
+		System.out.println("컨트롤3333");
+		
+		return "redirect:/index.jsp";
+	}
+	
 }

@@ -68,7 +68,7 @@
 	
 	<div class="form-group">
 		 <label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">ªÛ«∞∏Ì</label>
-		   <div class="col-sm-4">${productVO.prodName}"</div>
+		   <div class="col-sm-4">${productVO.prodName}</div>
 	</div> 
 	
 	<div class="form-group">

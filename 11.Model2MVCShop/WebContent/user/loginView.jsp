@@ -81,26 +81,11 @@
 		
 		//////////////////////////////////////페이스북 로그인 /////////////////////////////////////
 		
-		function statusChangeCallback(response) {
-		    console.log('statusChangeCallback');
-		    console.log(response);
-		    
-		    if (response.status === 'connected') {
-		    	console.log('로그인 연결');
-		    	console.log(response.authResponse.accessToken);
-		    	testAPI();
-		      
-		    } else {
-		     // document.getElementById('status').innerHTML = 'Please log ' +
-		        //'into this app.';
-		    	console.log('로그인 하세요');
-		    }
-		  }
-
-		  function checkLoginState() {
+		function checkLoginState() {
 		    FB.getLoginStatus(function(response) {
 		      statusChangeCallback(response);
-		    });
+		  	  }
+			);
 		  }
 
 		  window.fbAsyncInit = function() {
@@ -117,6 +102,22 @@
 		  });
 
 		  };
+		
+		
+		function statusChangeCallback(response) {
+		    console.log('statusChangeCallback');
+		    console.log(response);
+		    
+		    if (response.status === 'connected') {
+		    	console.log('로그인 연결');
+		    	console.log(response.authResponse.accessToken);
+		    	testAPI();
+		      
+		    } else {
+		    	console.log('로그인 하세요');
+		    }
+		  }
+
 			
 		  (function(d, s, id) {
 			  var js, fjs = d.getElementsByTagName(s)[0];
@@ -128,27 +129,22 @@
 
 		  function testAPI() {
 		    console.log('Welcome!  Fetching your information.... ');
-		    FB.api('/me', function(response) {
-		      console.log('Successful login for: ' + response.name);
-		      console.log('Successful login for: ' + response.email);
-		      console.log('Successful login for: ' + response.birthday);
-		      console.log('Successful login for: ' + response);
-		     
-		      FB.api('/me/picture?type=large',function(data){
-				  var myImg = data.data.url;
-				  console.log('이미지 ' + myImg);
-				  });
-		      //document.getElementById('status').innerHTML =
-		        //'Thanks for logging in, ' + response.name + '!';
-		    });
-		  }
+		    
+		    $.ajax({
+				type: "post",
+				url: "/user/login",
+				dataType: "jason"
+				   
+			})
+		  
+		  
+		}
 		
 	</script>		
 	
 </head>
 
 <body>
-
 	<!-- ToolBar Start /////////////////////////////////////-->
 	<div class="navbar  navbar-default">
         <div class="container">
@@ -193,6 +189,7 @@
 					  </div>
 					  
 					  <div id="fb-root"></div>
+					  
 						<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" 
 							data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
 					</form>

@@ -60,7 +60,15 @@
 	       <h3 class=" text-info">회원정보조회</h3>
 	       <h5 class="text-muted">내 정보를 <strong class="text-danger">최신정보로 관리</strong>해 주세요.</h5>
 	    </div>
-	
+	    
+	    
+	    <div class="row">
+	  		<div class="col-xs-4 col-md-2 "><strong>사진</strong></div>
+			<div class="col-xs-8 col-md-4">${user.image}</div>
+		</div>
+		
+		<hr/>
+	    	
 		<div class="row">
 	  		<div class="col-xs-4 col-md-2"><strong>아 이 디</strong></div>
 			<div class="col-xs-8 col-md-4">${user.userId}</div>
