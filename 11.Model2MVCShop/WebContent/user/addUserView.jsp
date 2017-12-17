@@ -190,8 +190,6 @@
 			    	handleFacebookRegist(response);
 			      
 			    } else {
-			     // document.getElementById('status').innerHTML = 'Please log ' +
-			        //'into this app.';
 			    	console.log('로그인 하세요');
 			    }
 			  }
@@ -207,17 +205,7 @@
 
 			  function testAPI() {
 			    console.log('Welcome!  Fetching your information.... ');
-			   /*  FB.api('/me',function(response) {
-			      console.log('Successful login for: ' + response.name);
-			      console.log('Successful login for: ' + response.email);
-			      console.log('Successful login for: ' + response.birthday);
-			      console.log('Successful login for: ' + response.id);
-			      
-			      //document.getElementById('status').innerHTML =
-			        //'Thanks for logging in, ' + response.name + '!';
-			    }); */
 			    console.log('이동....');
-			   //$("form").attr("method","POST").attr("action","/connect/facebook").submit();
 			  }
 			  
 			  function handleFacebookRegist(response) {
@@ -235,11 +223,8 @@
 					userId = user.id;
 					userName = user.name;
 					image = image;
-					alert(userId);
-					alert(userName);
-					alert('이미지 ' + image);
 					
-				$.ajax({
+				/* $.ajax({
 					type: "post",
 					url: "/user/facebooklogin",
 					dataType: "jason",
@@ -247,12 +232,16 @@
 		                  userId : userId,
 		                  userName : userName,
 		                  image : image
-		               } 
-				})
+		               }
+					}) */
 					
+					alert(userId);
+					alert(userName);
+					alert('이미지 ' + image);
+				 // $.post("/user/facebooklogin", {userId: userId, userName : userName, image : image});	
+				  self.location = "/user/facebookadd?userId="+userId+"&userName="+userName+"&image="+image;
 				})
-				
-			}
+			  }
 
 	</script>		
     
@@ -372,8 +361,8 @@
 		</form>
 		<!-- form Start /////////////////////////////////////-->
 		<div class="col-sm-offset-4  col-sm-4 text-center">
-		<fb:login-button scope="public_profile,email" class="fb-login-button"  data-size="large" data-button-type="continue_with"  onlogin="checkLoginState();">
-		</fb:login-button>
+			<fb:login-button scope="public_profile,email" class="fb-login-button"  data-size="large" data-button-type="continue_with"  onlogin="checkLoginState();">
+			</fb:login-button>
  		</div>
 	<!--  화면구성 div end /////////////////////////////////////-->
 	</div>

@@ -121,7 +121,7 @@ public class UserController {
 	@RequestMapping( value="login", method=RequestMethod.GET )
 	public String login() throws Exception{
 		
-		System.out.println("/user/logon : GET");
+		System.out.println("/user/login : GET");
 
 		return "redirect:/user/loginView.jsp";
 	}
@@ -190,17 +190,35 @@ public class UserController {
 		return "forward:/user/listUser.jsp";
 	}
 	
-	@RequestMapping( value="facebooklogin" )
-	public String facebooklogin(@ModelAttribute("data") User user, HttpSession session) throws Exception{
+	@RequestMapping( value="facebookadd" )
+	public String facebookadd(@RequestParam("userId") String userId, @RequestParam("userName") String userName, @RequestParam("image") String image, HttpSession session) throws Exception{
 		
-		System.out.println("/user/facebooklogin");
-		System.out.println(user);
+		System.out.println("/user/facebookadd");
+		
+		User user = new User();
+		user.setUserId(userId);
+		user.setUserName(userName);
+		user.setImage(image);
 		
 		if(userService.getUser(user.getUserId())==null){
+			
 			userService.addUser(user);
 			session.setAttribute("user", user);
 		}
-		System.out.println("ÄÁÆ®·Ñ3333");
+		
+		return "redirect:/index.jsp";
+	}
+	
+	@RequestMapping( value="facebooklogin" )
+	public String facebooklogin(@RequestParam("userId") String userId, HttpSession session) throws Exception{
+		
+		System.out.println("/user/facebooklogin");
+		
+		if(userService.getUser(userId)!=null){
+			
+			User user = userService.getUser(userId);
+			session.setAttribute("user", user);
+		}
 		
 		return "redirect:/index.jsp";
 	}

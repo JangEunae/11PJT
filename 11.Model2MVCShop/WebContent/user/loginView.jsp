@@ -28,6 +28,7 @@
     		}
     	.jumbotron {
     		text-align: center;
+    		opacity: 0.8;
     	}	
     	
     	@media screen and (min-width: 768px)
@@ -111,7 +112,8 @@
 		    if (response.status === 'connected') {
 		    	console.log('로그인 연결');
 		    	console.log(response.authResponse.accessToken);
-		    	testAPI();
+		    	//testAPI();
+		    	handleFacebookRegist(response);
 		      
 		    } else {
 		    	console.log('로그인 하세요');
@@ -129,17 +131,19 @@
 
 		  function testAPI() {
 		    console.log('Welcome!  Fetching your information.... ');
-		    
-		    $.ajax({
-				type: "post",
-				url: "/user/login",
-				dataType: "jason"
-				   
+			}
+		  
+		  function handleFacebookRegist(response) {
+			  console.log(response.authResponse.accessToken);
+			  var accessToken = response.authResponse.accessToken;
+			  var userId;
+			  
+			  FB.api('/me', function (user) {
+				userId = user.id;
+				alert(userId);
+			  self.location = "/user/facebooklogin?userId="+userId;
 			})
-		  
-		  
-		}
-		
+		  }
 	</script>		
 	
 </head>
@@ -188,10 +192,10 @@
 					    </div>
 					  </div>
 					  
-					  <div id="fb-root"></div>
-					  
-						<div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="continue_with" 
-							data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+					  <div class="col-sm-offset-4  col-sm-4 text-center">
+						<fb:login-button scope="public_profile,email" class="fb-login-button"  data-size="large" data-button-type="continue_with"  onlogin="checkLoginState();">
+						</fb:login-button>
+ 					</div>
 					</form>
 			   	 </div>
 			

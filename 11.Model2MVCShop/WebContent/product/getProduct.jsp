@@ -17,11 +17,6 @@
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta property="og:url"           content="/product/getProduct?prodNo=${productVO.prodNo}&menu=search" />
- 	<meta property="og:type"          content="article" />
-  	<meta property="og:title"         content="Model2 MVC Shop" />
-  	<meta property="og:description"   content="모듈화된 프리미엄 최고급 온라인 샵, 차별화된 서비스를 만나세요." />
-  	<meta property="og:image"         content="/images/uploadFiles/${productVO.fileName.trim()}" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -32,7 +27,12 @@
    
     <!-- Bootstrap Dropdown Hover JS -->
    <script src="/javascript/bootstrap-dropdownhover.min.js"></script>
-	
+	<meta property="og:url"           content="/product/getProduct?prodNo=${productVO.prodNo}&menu=search" />
+ 	<meta property="og:type"          content="article" />
+  	<meta property="og:title"         content="Model2 MVC Shop" />
+  	<meta property="og:description"   content="모듈화된 프리미엄 최고급 온라인 샵, 차별화된 서비스를 만나세요." />
+  	<meta property="og:image"         content="/images/uploadFiles/${productVO.fileName.trim()}" />
+  	<meta property="fb:app_id" content="157517288201485"/>
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
  		body {
@@ -68,8 +68,12 @@
 			  fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 		
+		
+		
 	</script>
 <title>상품 상세 정보</title>
+
+
 </head>
 
 <body>
@@ -136,7 +140,7 @@
 		<div id="fb-root"></div>
 		
 		<div class="fb-share-button" data-href="/product/getProduct?prodNo=${productVO.prodNo}&menu=search" data-layout="button" data-size="large" data-mobile-iframe="true">
-			공유하기
+			<a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">공유하기</a>
 		</div>
 
 	<div class="row">
