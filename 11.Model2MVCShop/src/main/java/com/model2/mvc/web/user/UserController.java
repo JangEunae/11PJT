@@ -191,14 +191,15 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="facebookadd" )
-	public String facebookadd(@RequestParam("userId") String userId, @RequestParam("userName") String userName, @RequestParam("image") String image, HttpSession session) throws Exception{
+	public String facebookadd(@RequestParam("userId") String userId, @RequestParam("userName") String userName, @RequestParam("multi") MultipartFile image, HttpSession session) throws Exception{
 		
 		System.out.println("/user/facebookadd");
 		
 		User user = new User();
 		user.setUserId(userId);
 		user.setUserName(userName);
-		user.setImage(image);
+		System.out.println("?????/"+image.getOriginalFilename());
+		user.setImage(image.getOriginalFilename());
 		
 		if(userService.getUser(user.getUserId())==null){
 			

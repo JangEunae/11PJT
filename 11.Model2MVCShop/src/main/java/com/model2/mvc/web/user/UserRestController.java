@@ -37,6 +37,16 @@ public class UserRestController {
 		//Business Logic
 		return userService.getUser(userId);
 	}
+	
+	@RequestMapping( value="json/addUser", method=RequestMethod.GET )
+	public User addUser( @PathVariable String userId ) throws Exception{
+		
+		System.out.println("/user/json/getUser : GET");
+		
+		//Business Logic
+		return userService.getUser(userId);
+	}
+	
 
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
 	public User login(	@RequestBody User user,

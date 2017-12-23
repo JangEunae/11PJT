@@ -10,6 +10,8 @@
 	<meta charset="EUC-KR">
 	
 	<!-- 참조 : http://getbootstrap.com/css/   참조 -->
+	<meta name="google-signin-scope" content="profile email">
+	<meta name="google-signin-client_id" content="1060831931954-ochnep60865a0v4bg06imh2s123i9u55.apps.googleusercontent.com">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
 	<!--  ///////////////////////// Bootstrap, jQuery CDN ////////////////////////// -->
@@ -17,6 +19,8 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" >
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+	
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 	
 	<!--  ///////////////////////// CSS ////////////////////////// -->
 	<style>
@@ -153,7 +157,7 @@
 		});	
 		
 		
-//////////////////////////////////////페이스북 로그인 /////////////////////////////////////
+		//////////////////////////////////////페이스북 로그인 /////////////////////////////////////
 			
 			function checkLoginState() {
 			    FB.getLoginStatus(function(response) {
@@ -186,7 +190,6 @@
 			    if (response.status === 'connected') {
 			    	console.log('로그인 연결');
 			    	console.log(response.authResponse.accessToken);
-			    	testAPI();
 			    	handleFacebookRegist(response);
 			      
 			    } else {
@@ -203,10 +206,6 @@
 				  fjs.parentNode.insertBefore(js, fjs);
 				}(document, 'script', 'facebook-jssdk'));
 
-			  function testAPI() {
-			    console.log('Welcome!  Fetching your information.... ');
-			    console.log('이동....');
-			  }
 			  
 			  function handleFacebookRegist(response) {
 				  console.log(response.authResponse.accessToken);
@@ -218,30 +217,63 @@
 					  console.log('이미지 ' + image);
 					  });
 				  
-				  FB.api('/me?fields=name,email', function (user) {
+				  FB.api('/me', function (user) {
 					
 					userId = user.id;
 					userName = user.name;
 					image = image;
-					
-				/* $.ajax({
-					type: "post",
-					url: "/user/facebooklogin",
-					dataType: "jason",
-					data:{
-		                  userId : userId,
-		                  userName : userName,
-		                  image : image
-		               }
-					}) */
-					
 					alert(userId);
 					alert(userName);
 					alert('이미지 ' + image);
-				 // $.post("/user/facebooklogin", {userId: userId, userName : userName, image : image});	
-				  self.location = "/user/facebookadd?userId="+userId+"&userName="+userName+"&image="+image;
+					
+					$("input:text[name='userId']").val(userId);
+					$("input:text[name='userName']").val(userName);
+					$("input:file[name='multi']").val(image);
+				
+				  $("form").attr("method" , "POST").attr("enctype" , "multipart/form-data").attr("action" , "/user/facebookadd").submit();
 				})
 			  }
+			  
+			//////////////////////////////////////////구글 로그인//////////////////////////////////
+
+			/*  function onSuccess(googleUser) {
+				var profile = googleUser.getBasicProfile();
+				console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+				console.log('Name: ' + profile.getName());
+				console.log('Image URL: ' + profile.getImageUrl());
+				console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.  
+				console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+			      
+			    }
+			    function onFailure(error) {
+			      console.log(error);
+			    }
+			    function renderButton() {
+			      gapi.signin2.render('my-signin2', {
+			        'scope': 'profile email',
+			        'width': 240,
+			        'height': 50,
+			        'longtitle': true,
+			        'theme': 'dark',
+			        'onsuccess': onSuccess,
+			        'onfailure': onFailure
+			      });
+			    } */
+			    
+			    function onSignIn(googleUser) {
+			        // Useful data for your client-side scripts:
+			        var profile = googleUser.getBasicProfile();
+			        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+			        console.log('Full Name: ' + profile.getName());
+			        console.log('Given Name: ' + profile.getGivenName());
+			        console.log('Family Name: ' + profile.getFamilyName());
+			        console.log("Image URL: " + profile.getImageUrl());
+			        console.log("Email: " + profile.getEmail());
+
+			        // The ID token you need to pass to your backend:
+			        var id_token = googleUser.getAuthResponse().id_token;
+			        console.log("ID Token: " + id_token);
+			      };
 
 	</script>		
     
@@ -360,10 +392,19 @@
 		  </div>
 		</form>
 		<!-- form Start /////////////////////////////////////-->
-		<div class="col-sm-offset-4  col-sm-4 text-center">
-			<fb:login-button scope="public_profile,email" class="fb-login-button"  data-size="large" data-button-type="continue_with"  onlogin="checkLoginState();">
-			</fb:login-button>
+		<div class="form-group">
+			<div class="col-sm-offset-4  col-sm-4 text-center">
+				<fb:login-button scope="public_profile,email" class="fb-login-button"  data-size="large" data-button-type="continue_with"  onlogin="checkLoginState();">
+				</fb:login-button>
+	 		</div>
  		</div>
+ 		
+ 		<div class="form-group">
+	 		<div class="col-sm-offset-4  col-sm-4 text-center">
+	 		<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+	 		</div>
+	 	</div>
+	 	
 	<!--  화면구성 div end /////////////////////////////////////-->
 	</div>
 </body>

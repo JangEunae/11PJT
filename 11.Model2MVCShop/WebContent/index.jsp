@@ -18,7 +18,7 @@
 	
 <head>
 	<meta charset="EUC-KR">
-	
+	<meta name="google-signin-client_id" content="1060831931954-ochnep60865a0v4bg06imh2s123i9u55.apps.googleusercontent.com">
 	<!-- 참조 : http://getbootstrap.com/css/   -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	
