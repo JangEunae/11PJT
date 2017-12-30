@@ -1,17 +1,30 @@
 package com.model2.mvc.web.user;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.annotate.JsonValue;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Exchange;
 import com.model2.mvc.service.domain.User;
 import com.model2.mvc.service.user.UserService;
 
@@ -222,6 +236,54 @@ public class UserController {
 		}
 		
 		return "redirect:/index.jsp";
+	}
+	
+	@RequestMapping( value="exchange" )
+	public String exchange(Model model) throws Exception{
+		
+		System.out.println("/user/exchange");
+		
+		String key = "4RKuUFR6wEpqdppFDxmGS1RkUztGUN9W";
+		String req = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey="+key+"&data=AP01&searchdate=20171227";
+		
+		URL url = new URL(req);
+		HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("GET");
+        
+        int responseCode = con.getResponseCode();
+		
+        BufferedReader br = null;
+        System.out.println(responseCode);
+	        if(responseCode==200) { 
+	            br = new BufferedReader(new InputStreamReader(con.getInputStream(),"UTF-8"));
+	        } else {  // 에러 발생
+	            br = new BufferedReader(new InputStreamReader(con.getErrorStream(),"UTF-8"));
+	        }
+      //JSON Data 읽기
+        String jsonData = "";
+        JSONArray json = null;
+        StringBuffer response = new StringBuffer();
+        ObjectMapper objMapper = new ObjectMapper();
+        List<Exchange> returnList = new ArrayList<Exchange>();
+        
+	        while ((jsonData = br.readLine()) != null) {
+	            
+	        	//json = (JSONArray)JSONValue.parse(jsonData+"\n");
+	        	
+	        	response.append(jsonData);
+	        }
+	        br.close();
+	        //String jsonMany = objMapper.writeValueAsString(response);
+	        returnList = objMapper.readValue(response.toString(),new TypeReference<List<Exchange>>() {
+			});
+        // Console 확인
+	        
+	        model.addAttribute("returnList", returnList);
+	        System.out.println(returnList);
+	        //System.out.println(returnList.get(0));
+        //	System.out.println((JSONObject)json.get(0));
+      //  System.out.println(response.toString());
+	        return "forward:/user/exchange.jsp";
 	}
 	
 }

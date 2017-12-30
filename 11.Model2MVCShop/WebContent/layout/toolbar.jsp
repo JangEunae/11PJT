@@ -58,6 +58,8 @@
 		                     <ul class="dropdown-menu">
 		                         <li><a href="#">판매상품등록</a></li>
 		                         <li><a href="#">판매상품관리</a></li>
+		                         <li><a href="#">환율</a></li>
+		                         <li><a href="#">비행기</a></li>
 		                         <li class="divider"></li>
 		                         <li><a href="#">etc..</a></li>
 		                     </ul>
@@ -124,28 +126,28 @@
 		});
 		
 	 	$( "a:contains('판매상품등록')" ).on("click" , function() {
-			//Debug..
-			//alert(  $( ".Depth03:contains('회원정보조회')" ) );
 	 		$(self.location).attr("href","/product/addProductView.jsp;");
 		}); 
 	 	
 	 	$( "a:contains('판매상품관리')" ).on("click" , function() {
-			//Debug..
-			//alert(  $( ".Depth03:contains('회원정보조회')" ) );
 	 		$(self.location).attr("href","/product/listProduct?menu=manage");
 		}); 
 	 	
 	 	$( "a:contains('상 품 검 색')" ).on("click" , function() {
-			//Debug..
-			//alert(  $( ".Depth03:contains('회원정보조회')" ) );
 	 		$(self.location).attr("href","/product/listProduct?menu=search");
 		}); 
 	 	
 	 	$( "a:contains('구매이력조회')" ).on("click" , function() {
-			//Debug..
-			//alert(  $( ".Depth03:contains('회원정보조회')" ) );
 	 		$(self.location).attr("href","/purchase/listPurchase");
+		});
+	 	$( "a:contains('환율')" ).on("click" , function() {
+	 		$(self.location).attr("href","/user/exchange");
 		}); 
+	 	
+	 	$( "a:contains('비행기')" ).on("click" , function() {
+	 		$(self.location).attr("href","/user/flight.jsp");
+		}); 
+		
 		
 	 });
 	</script>  
